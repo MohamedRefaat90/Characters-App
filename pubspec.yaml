@@ -44,6 +44,7 @@ dependencies:
   another_flushbar: ^1.12.30
   page_transition: ^2.1.0
   pretty_dio_logger: ^1.4.0
+  google_fonts: ^6.2.1
 
 dev_dependencies:
   flutter_test:

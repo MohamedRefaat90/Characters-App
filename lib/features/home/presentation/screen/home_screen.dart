@@ -1,32 +1,35 @@
-import 'package:characters_app/core/constants/app_assets.dart';
-import 'package:characters_app/features/home/data/models/category_model.dart';
-import 'package:characters_app/features/home/presentation/widgets/category_card.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-class HomeScreen extends StatelessWidget {
+import 'package:characters_app/features/home/presentation/widgets/category_card.dart';
+import 'package:characters_app/features/home/provider/home_provider.dart';
+
+class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    List<CategoryModel> categories = [
-      CategoryModel(
-          name: 'Harry Potter', image: AppAssets.hp, color: Colors.black87),
-      CategoryModel(
-          name: 'Pokemon', image: AppAssets.pokemon, color: Colors.amber),
-    ];
-
+  Widget build(BuildContext context, WidgetRef ref) {
+    var homeNotifier = ref.watch(homeProvider.notifier);
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Text(
+            "Welecom To Characters App",
+            style: GoogleFonts.cairoPlay(
+              fontSize: 22,
+              fontWeight: FontWeight.w700,
+              color: Colors.black,
+            ),
+          ),
           GridView.builder(
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2),
-            itemCount: categories.length,
+            itemCount: homeNotifier.categories.length,
             shrinkWrap: true,
             itemBuilder: (context, index) =>
-                CategoryCard(category: categories[index]),
+                CategoryCard(category: homeNotifier.categories[index]),
           )
         ],
       ),
