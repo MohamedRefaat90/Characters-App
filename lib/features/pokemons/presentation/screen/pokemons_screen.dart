@@ -14,31 +14,60 @@ class PokemonsScreen extends ConsumerStatefulWidget {
 }
 
 class _PokemonsScreenState extends ConsumerState<PokemonsScreen> {
+  final ScrollController _scrollController = ScrollController();
   @override
   Widget build(BuildContext context) {
+    final pokemonState = ref.watch(pokemonProvider);
     return Scaffold(
         appBar: AppBar(title: const Text('Pokemons')),
-        body: ref.watch(pokemonProvider).when(
-              data: (data) => GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                ),
-                itemCount: data.length,
-                itemBuilder: (context, index) {
-                  PokemonModel pokemonModel = PokemonModel.fromMap(data[index]);
-                  return PokemonCard(pokemon: pokemonModel);
-                },
-              ),
-              error: (error, stackTrace) => CustomErrorWidget(error.toString()),
-              loading: () => const CustomLoadingWidget(),
-            ));
+        body: pokemonState.isLoading && pokemonState.pokemons.isEmpty
+            ? const Center(
+                child:
+                    CustomLoadingWidget()) // Show loading widget when initially loading
+            : pokemonState.errorMessage != null
+                ? CustomErrorWidget(
+                    pokemonState.errorMessage!) // Show error if exists
+                : Column(
+                    children: [
+                      Expanded(
+                        child: GridView.builder(
+                            controller: _scrollController,
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 10,
+                              mainAxisSpacing: 10,
+                            ),
+                            itemCount: pokemonState.pokemons.length,
+                            itemBuilder: (context, index) {
+                              final pokemonModel = PokemonModel.fromMap(
+                                  pokemonState.pokemons[index]);
+                              return PokemonCard(pokemon: pokemonModel);
+                            }),
+                      ),
+                      if (pokemonState.isLoading)
+                        const Center(child: CircularProgressIndicator()),
+                    ],
+                  ));
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 
   @override
   void initState() {
-    ref.read(pokemonProvider);
+    _scrollController.addListener(_onScroll);
     super.initState();
+  }
+
+  void _onScroll() {
+    // Load more when the user scrolls near the bottom
+    if (_scrollController.position.pixels >=
+        _scrollController.position.maxScrollExtent - 200) {
+      ref.read(pokemonProvider.notifier).getAllPokemons();
+    }
   }
 }

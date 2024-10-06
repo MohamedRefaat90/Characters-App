@@ -11,8 +11,9 @@ class PokemonsRepo {
 
   PokemonsRepo(this._apiHandler);
 
-  Future<List> getAllPokemons() async {
-    Response response = await _apiHandler.get("Pokemons");
+  Future getAllPokemons({int page = 1, int numOfItems = 10}) async {
+    Response response =
+        await _apiHandler.get("Pokemons?page=$page&num_of_items=$numOfItems");
 
     return response.data;
   }
