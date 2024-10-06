@@ -1,8 +1,9 @@
+import 'package:characters_app/core/network/dio_handler.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final apiProvider = Provider<ApiHandler>((ref) {
-  return ApiHandler(Dio());
+  return ApiHandler(DioHandler().getDio());
 });
 
 class ApiHandler {
@@ -10,12 +11,11 @@ class ApiHandler {
 
   ApiHandler(this.dio);
 
-  Future<Response> get(String path,
-      {Map<String, dynamic>? queryParameters}) async {
-    return dio.get(path, queryParameters: queryParameters);
+  get(String path, {Map<String, dynamic>? queryParameters}) async {
+    return await dio.get(path, queryParameters: queryParameters);
   }
 
-  Future<Response> post(String path, {dynamic data}) async {
-    return dio.post(path, data: data);
+  post(String path, {dynamic data}) async {
+    return await dio.post(path, data: data);
   }
 }

@@ -24,6 +24,6 @@ class HomeNotifier extends StateNotifier<bool> {
         name: 'Pokemon',
         image: AppAssets.pokemon,
         color: Colors.amber,
-        press: () => router.pushNamed(AppRouting.harrypotter)),
+        press: () => router.pushNamed(AppRouting.pokemons)),
   ];
 }

@@ -45,6 +45,7 @@ dependencies:
   page_transition: ^2.1.0
   pretty_dio_logger: ^1.4.0
   google_fonts: ^6.2.1
+  cached_network_image: ^3.4.1
 
 dev_dependencies:
   flutter_test:

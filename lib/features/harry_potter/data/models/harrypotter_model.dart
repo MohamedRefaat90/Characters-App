@@ -35,6 +35,6 @@ class HarrypotterModel {
     );
   }
 
-  factory HarrypotterModel.fromJson(String source) =>
-      HarrypotterModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  // factory HarrypotterModel.fromJson(String source) =>
+  //     HarrypotterModel.fromMap(json.decode(source) as Map<String, dynamic>);
 }

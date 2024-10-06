@@ -1,4 +1,5 @@
 import 'package:characters_app/core/constants/app_routings.dart';
+import 'package:characters_app/features/harry_potter/presentation/screen/harrypotter_screen.dart';
 import 'package:characters_app/features/home/presentation/screen/home_screen.dart';
 import 'package:go_router/go_router.dart';
 
@@ -16,5 +17,5 @@ GoRouter router = GoRouter(routes: [
   GoRoute(
       path: AppRouting.harrypotter,
       name: AppRouting.harrypotter,
-      builder: (context, state) => const PokemonsScreen()),
+      builder: (context, state) => const HarrypotterScreen()),
 ]);

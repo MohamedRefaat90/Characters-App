@@ -4,7 +4,7 @@ class PokemonModel {
   final int id;
   final String name;
   final String description;
-  final List<String> type;
+  final List type;
   final String image;
   PokemonModel({
     required this.id,
@@ -20,7 +20,7 @@ class PokemonModel {
       name: map['name'] as String,
       description: map['description'] as String,
       type: List<String>.from(
-        (map['type'] as List<String>),
+        (map['type'] as List),
       ),
       image: map['image'] as String,
     );
