@@ -1,6 +1,5 @@
 import 'package:characters_app/core/network/api_handler.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final hpRepo = Provider<HpRepo>((ref) {
@@ -12,8 +11,14 @@ class HpRepo {
 
   HpRepo(this._apiHandler);
 
-  Future<List> getAllCharacters() async {
-    Response response = await _apiHandler.get("HarryPotter/");
+  Future<List> getAllCharacters({int numOfItems = 30}) async {
+    Response response =
+        await _apiHandler.get("HarryPotter/?page=1&num_of_items=$numOfItems");
+    return response.data['results'];
+  }
+
+  getCharacterDetails(int characterId) async {
+    Response response = await _apiHandler.get("HarryPotter/$characterId");
     return response.data;
   }
 }

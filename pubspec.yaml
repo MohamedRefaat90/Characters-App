@@ -46,6 +46,7 @@ dependencies:
   pretty_dio_logger: ^1.4.0
   google_fonts: ^6.2.1
   cached_network_image: ^3.4.1
+  audioplayers: ^6.1.0
 
 dev_dependencies:
   flutter_test:
@@ -73,6 +74,9 @@ flutter:
   assets:
     - assets/images/
     - assets/lottie/
+    - assets/images/patronus/
+    - assets/images/houses/
+    - assets/audios/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -86,10 +90,10 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
+  fonts:
+    - family: HarryP_font
+      fonts:
+        - asset: assets/fonts/HarryP_font.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

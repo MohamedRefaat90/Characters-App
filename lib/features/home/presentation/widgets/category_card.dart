@@ -1,9 +1,6 @@
 import 'package:characters_app/core/constants/app_colors.dart';
-import 'package:characters_app/core/constants/app_routings.dart';
-import 'package:characters_app/core/widgets/custom_back_button.dart';
 import 'package:characters_app/features/home/data/models/category_model.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 
 class CategoryCard extends StatelessWidget {
@@ -23,8 +20,15 @@ class CategoryCard extends StatelessWidget {
             Lottie.asset(category.image, height: 150),
             Text(
               category.name,
-              style: const TextStyle(
-                  fontWeight: FontWeight.bold, color: AppColors.white),
+              style: TextStyle(
+                  fontWeight: category.name == "Harry Potter"
+                      ? FontWeight.normal
+                      : FontWeight.bold,
+                  letterSpacing: category.name == "Harry Potter" ? 2 : 0,
+                  color: AppColors.white,
+                  fontSize: category.name == "Harry Potter" ? 25 : 17,
+                  fontFamily:
+                      category.name == "Harry Potter" ? 'HarryP_font' : ''),
             ),
           ],
         ),

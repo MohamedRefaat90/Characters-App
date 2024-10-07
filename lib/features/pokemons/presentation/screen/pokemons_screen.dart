@@ -1,5 +1,5 @@
 import 'package:characters_app/core/widgets/custom_error_widget.dart';
-import 'package:characters_app/core/widgets/loading_widget.dart';
+import 'package:characters_app/core/widgets/custom_loading_widget.dart';
 import 'package:characters_app/features/pokemons/data/models/pokemon_model.dart';
 import 'package:characters_app/features/pokemons/presentation/widgets/pokemon_card.dart';
 import 'package:characters_app/features/pokemons/provider/pokemon_provider.dart';
@@ -22,8 +22,9 @@ class _PokemonsScreenState extends ConsumerState<PokemonsScreen> {
         appBar: AppBar(title: const Text('Pokemons')),
         body: pokemonState.isLoading && pokemonState.pokemons.isEmpty
             ? const Center(
-                child:
-                    CustomLoadingWidget()) // Show loading widget when initially loading
+                child: CustomLoadingWidget(
+                    lottie:
+                        "assets/lottie/pokemon_image_loader.json")) // Show loading widget when initially loading
             : pokemonState.errorMessage != null
                 ? CustomErrorWidget(
                     pokemonState.errorMessage!) // Show error if exists

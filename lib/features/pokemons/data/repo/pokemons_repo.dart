@@ -17,4 +17,10 @@ class PokemonsRepo {
 
     return response.data;
   }
+
+  Future getPokemonsDetails(int pokemonID) async {
+    Response response = await _apiHandler.get("Pokemons/$pokemonID");
+
+    return response.data;
+  }
 }

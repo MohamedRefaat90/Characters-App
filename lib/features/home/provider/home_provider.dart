@@ -16,13 +16,13 @@ class HomeNotifier extends StateNotifier<bool> {
   List<CategoryModel> categories = [
     CategoryModel(
       name: 'Harry Potter',
-      image: AppAssets.hp,
+      image: AppAssets.hpLogo,
       color: Colors.black87,
       press: () => router.pushNamed(AppRouting.harrypotter),
     ),
     CategoryModel(
         name: 'Pokemon',
-        image: AppAssets.pokemon,
+        image: AppAssets.pokemonLogo,
         color: Colors.amber,
         press: () => router.pushNamed(AppRouting.pokemons)),
   ];
