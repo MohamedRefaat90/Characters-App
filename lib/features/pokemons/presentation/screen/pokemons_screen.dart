@@ -1,3 +1,5 @@
+import 'package:audioplayers/audioplayers.dart';
+import 'package:characters_app/core/helpers/play_sound.dart';
 import 'package:characters_app/core/widgets/custom_error_widget.dart';
 import 'package:characters_app/core/widgets/custom_loading_widget.dart';
 import 'package:characters_app/features/pokemons/data/models/pokemon_model.dart';
@@ -15,6 +17,16 @@ class PokemonsScreen extends ConsumerStatefulWidget {
 
 class _PokemonsScreenState extends ConsumerState<PokemonsScreen> {
   final ScrollController _scrollController = ScrollController();
+
+  final player = AudioPlayer();
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_onScroll);
+    playSound(player, 'audios/Pokemon.mp3');
+  }
+
   @override
   Widget build(BuildContext context) {
     final pokemonState = ref.watch(pokemonProvider);
@@ -55,13 +67,8 @@ class _PokemonsScreenState extends ConsumerState<PokemonsScreen> {
   @override
   void dispose() {
     _scrollController.dispose();
+    player.dispose();
     super.dispose();
-  }
-
-  @override
-  void initState() {
-    _scrollController.addListener(_onScroll);
-    super.initState();
   }
 
   void _onScroll() {

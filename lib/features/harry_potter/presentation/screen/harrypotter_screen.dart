@@ -1,5 +1,6 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:characters_app/core/constants/app_colors.dart';
+import 'package:characters_app/core/helpers/play_sound.dart';
 import 'package:characters_app/core/widgets/custom_error_widget.dart';
 import 'package:characters_app/features/harry_potter/data/models/harrypotter_model.dart';
 import 'package:characters_app/features/harry_potter/presentation/widgets/hp_character_card.dart';
@@ -18,14 +19,10 @@ class HarrypotterScreen extends ConsumerStatefulWidget {
 class _HarrypotterScreenState extends ConsumerState<HarrypotterScreen> {
   final player = AudioPlayer();
 
-  playSound() async {
-    await player.play(AssetSource('audios/HarryPotter.mp3'), volume: 100);
-  }
-
   @override
   void initState() {
     super.initState();
-    playSound();
+    playSound(player, 'audios/HarryPotter.mp3');
   }
 
   @override

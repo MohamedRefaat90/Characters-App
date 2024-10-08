@@ -21,6 +21,7 @@ class CharacterDetails extends ConsumerWidget {
               data: (character) => Column(
                 children: [
                   CachedNetworkImage(
+                    alignment: Alignment.topCenter,
                     imageUrl: character.image,
                     height: 400,
                     width: double.infinity,
@@ -45,7 +46,7 @@ class CharacterDetails extends ConsumerWidget {
                       Column(
                         children: [
                           Text(
-                            character.yearOfBirth!,
+                            character.yearOfBirth ?? "Unknown",
                             style: const TextStyle(fontSize: 30),
                           ),
                           const Text('Year of Birth',

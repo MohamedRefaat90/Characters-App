@@ -31,7 +31,7 @@ class PokemonCard extends StatelessWidget {
                   imageUrl: pokemon.image,
                   height: 150,
                   placeholder: (context, url) => const CustomLoadingWidget(
-                      lottie: AppAssets.pokemonLoader),
+                      lottie: AppAssets.pokemonLoader, size: 70),
                 ),
               ),
             ),
