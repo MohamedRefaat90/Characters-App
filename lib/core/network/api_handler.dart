@@ -2,7 +2,7 @@ import 'package:characters_app/core/network/dio_handler.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final apiProvider = Provider<ApiHandler>((ref) {
+final apiHandlerProvider = Provider<ApiHandler>((ref) {
   return ApiHandler(DioHandler().getDio());
 });
 

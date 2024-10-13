@@ -1,3 +1,4 @@
+import 'package:characters_app/core/services/secure_storage.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
@@ -18,7 +19,19 @@ class DioHandler {
             logPrint: (object) => debugPrint(object.toString()),
           ));
 
+  Future<void> setToken() async {
+    final token = await SecureStorage.read('token');
+    if (token != null && token.trim().isNotEmpty) {
+      dio.options.headers = {
+        "Authorization": "Token ${token.trim()}",
+      };
+    } else {
+      dio.options.headers = null;
+    }
+  }
+
   Dio getDio() {
+    setToken();
     return dio;
   }
 }

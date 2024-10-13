@@ -1,9 +1,10 @@
+import 'package:characters_app/core/network/api_endpoints.dart';
 import 'package:characters_app/core/network/api_handler.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final pokemonsRepo = Provider<PokemonsRepo>((ref) {
-  return PokemonsRepo(ref.watch(apiProvider));
+  return PokemonsRepo(ref.watch(apiHandlerProvider));
 });
 
 class PokemonsRepo {
@@ -12,8 +13,8 @@ class PokemonsRepo {
   PokemonsRepo(this._apiHandler);
 
   Future getAllPokemons({int page = 1, int numOfItems = 10}) async {
-    Response response =
-        await _apiHandler.get("Pokemons?page=$page&num_of_items=$numOfItems");
+    Response response = await _apiHandler
+        .get("${ApiEndpoints.pokemons}?page=$page&num_of_items=$numOfItems");
 
     return response.data;
   }
