@@ -29,9 +29,7 @@ class AuthRepo {
     });
   }
 
-  logout() {
-    apiHandler.post(
-      ApiEndpoints.logout,
-    );
+  logout() async {
+    await apiHandler.post(ApiEndpoints.logout);
   }
 }

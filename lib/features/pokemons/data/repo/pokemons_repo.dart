@@ -3,8 +3,8 @@ import 'package:characters_app/core/network/api_handler.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final pokemonsRepo = Provider<PokemonsRepo>((ref) {
-  return PokemonsRepo(ref.watch(apiHandlerProvider));
+final pokemonsRepo = Provider.autoDispose<PokemonsRepo>((ref) {
+  return PokemonsRepo(ref.read(apiHandlerProvider));
 });
 
 class PokemonsRepo {

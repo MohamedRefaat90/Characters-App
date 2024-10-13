@@ -1,3 +1,4 @@
+import 'package:characters_app/features/auth/provider/auth_provider.dart';
 import 'package:characters_app/features/home/presentation/widgets/category_card.dart';
 import 'package:characters_app/features/home/provider/home_provider.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,7 @@ class HomeScreen extends ConsumerWidget {
       appBar: AppBar(
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () => ref.read(authProvider.notifier).logout(context),
             icon: const Icon(
               Icons.logout,
               size: 35,

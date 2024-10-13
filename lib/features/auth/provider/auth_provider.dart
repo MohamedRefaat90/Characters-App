@@ -14,20 +14,22 @@ final authProvider = StateNotifierProvider<AuthNotifier, bool>((ref) {
 });
 
 class AuthNotifier extends StateNotifier<bool> {
-  final AuthRepo loginRepo;
-  AuthNotifier(this.loginRepo) : super(false);
+  final AuthRepo authRepo;
+  AuthNotifier(this.authRepo) : super(false);
 
   Future<UserModel?> login(
       String email, String password, BuildContext context) async {
     try {
-      final UserModel user = await loginRepo.login(email, password);
       state = true;
-      SecureStorage.write('token', user.token);
+      final UserModel user = await authRepo.login(email, password);
+      await SecureStorage.write('token', user.token);
+      state = false;
       if (context.mounted) {
         context.goNamed(AppRouting.home);
       }
       return user;
     } on DioException catch (e) {
+      state = false;
       if (context.mounted) {
         flushBar(context: context, message: e.response!.data['detail']);
       }
@@ -37,21 +39,30 @@ class AuthNotifier extends StateNotifier<bool> {
 
   Future<void> signup(UserinputModel userData, BuildContext context) async {
     try {
-      state = !state;
-      await loginRepo.signup(userData);
-      state = !state;
+      state = true;
+      await authRepo.signup(userData);
+      state = false;
       if (context.mounted) {
         context.pop();
       }
     } on DioException catch (e) {
+      state = false;
       if (context.mounted) {
         flushBar(context: context, message: e.response!.statusMessage);
       }
     }
   }
 
-  logout(BuildContext context) {
-    SecureStorage.delete('token');
-    context.goNamed(AppRouting.auth);
+  logout(BuildContext context) async {
+    try {
+      await authRepo.logout();
+
+      await SecureStorage.delete('token');
+      if (context.mounted) context.goNamed(AppRouting.auth);
+    } on DioException catch (e) {
+      if (context.mounted) {
+        flushBar(context: context, message: e.response!.statusMessage);
+      }
+    }
   }
 }
