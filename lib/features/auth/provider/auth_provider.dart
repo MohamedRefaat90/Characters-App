@@ -31,7 +31,9 @@ class AuthNotifier extends StateNotifier<bool> {
     } on DioException catch (e) {
       state = false;
       if (context.mounted) {
-        flushBar(context: context, message: e.response!.data['detail']);
+        flushBar(
+            context: context,
+            message: e.response!.data['detail'] ?? "Unkonw Error");
       }
       return null;
     }
